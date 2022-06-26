@@ -1,0 +1,183 @@
+/**
+ * border radius
+ */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 0.95rem !important;
+}
+.btn,
+.jumbotron,
+.nav :hover {
+  border-radius: 0px;
+}
+
+/* cart badge */
+
+.cart-badge,
+.cart-badge:hover {
+  border-radius: 60%;
+  padding: 3px;
+  font-size: 12px;
+  font-style: italic;
+  background: #000;
+}
+/**
+ * single product page - product name
+ */
+
+.name {
+  background: indigo;
+  color: #fff;
+  font-weight: bold;
+}
+
+/**
+ * product image on card
+ */
+
+.product-img {
+  min-height: 100px;
+}
+
+.jumbotron h2 {
+  margin-top: -20px;
+}
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: unset !important;
+}
+@media only screen and (max-width: 600px) {
+  .jumbotron h2 {
+    margin-top: 10px;
+  }
+}
+
+/**
+ * jumbotron animation
+ */
+
+.jumbotron {
+  height: 180px;
+  color: #fff;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  -webkit-animation: Gradient 15s ease infinite;
+  -moz-animation: Gradient 15s ease infinite;
+  animation: Gradient 15s ease infinite;
+}
+
+@-webkit-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@-moz-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+Card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+ul {
+  list-style: none;
+}
+a {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 0.875rem;
+  line-height: 30px;
+  white-space: nowrap;
+  position: relative;
+}
+.css-inputForm-Signup {
+  transition: 0.3s all;
+  margin: auto;
+  border: 1px solid #ffc10782 !important;
+}
+.css-inputForm-Signup:focus {
+  width: 95%;
+  border-radius: 10px;
+  box-shadow: 0px 1px 1px #b19696 !important;
+  border: 1px solid #ffc107 !important;
+}
+.css-inputForm-Search {
+  border: 1px solid #ffc10782 !important;
+}
+.css-inputForm-Search:focus {
+  border: 1px solid #ffc107 !important;
+}
+.css-DivImgCard-Product {
+  transition: 0.5s all;
+}
+.css-DivImgCard-Product:hover {
+  transform: translateY(-10px);
+}
+.css-NavItem-hover:hover {
+  background-color: #ffc107;
+}
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  background-color: beige!important;
+  color: #000;
+  border: 1px solid rgb(157, 105, 27);
+}
+.css-NavLink {
+  color: #000;
+}
+.css-NavLink:hover {
+  color: #000;
+}
+textarea.form-control {
+  min-height: calc(10.5em + 0.75rem + 2px);
+}
+.fa-heart{
+    transition: all .3s;
+}
+.fa-heart:hover{
+    cursor: pointer;
+    height: 1.5rem;
+}
+.accordion-button{
+    background-color: beige !important;
+}
+.accordion-button:not(.collapsed) {
+    color: #000000;
+}
+/* style slick slider */
+.slick-slider {
+  width: 100%;
+}
+.slick-prev:before, .slick-next:before{
+  color: #6d724d !important;
+}
