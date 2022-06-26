@@ -79,6 +79,7 @@ const Orders = () => {
           {orders.map((o, oIndex) => {
             return (
               <Table
+                bordered 
                 hover
                 className="shadow"
                 size="sm"
@@ -108,16 +109,16 @@ const Orders = () => {
                     </td>
                   </tr>
                   <tr>
-                    <th colSpan="2">Product ID</th>
+                    <th >Product ID</th>
                     <th colSpan="2">Product Name</th>
-                    <th colSpan="2">Product Price</th>
+                    <th>Product Price</th>
                     <th>Product Total</th>
                   </tr>
                   {o.products.map((p, pIndex) => (
                     <tr key={pIndex}>
-                      <td colSpan="2">{p._id}</td>
-                      <td colSpan="2">{p.name}</td>
-                      <td colSpan="2">{p.price}</td>
+                      <td>{p._id}</td>
+                      <td  colSpan="2">{p.name}</td>
+                      <td>{p.price}</td>
                       <td>{p.count}</td>
                     </tr>
                   ))}

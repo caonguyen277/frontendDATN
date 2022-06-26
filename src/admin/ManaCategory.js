@@ -65,7 +65,7 @@ const ManageCategories = () => {
     <Layout className="container-fluid">
       {showSuccess()}
       <div className="card" style={{ paddingBottom: "20px" }}>
-        <h2 className="mt-2 text-center">
+        <h2 className="mt-2 text-center text-warning">
           Total {categories.length} categories
         </h2>
         <div

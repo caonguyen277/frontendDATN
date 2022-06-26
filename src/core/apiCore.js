@@ -158,6 +158,23 @@ export const createComment = async (dataComment,token) => {
   let data = await response.json();
   return data;
 };
+export const apiDeleteComment = async (comment,token) => {
+  const response = await fetch(
+    `http://localhost:8888/api/deleteComment/${comment.user._id}`,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(comment),
+    }
+  );
+  let data = await response.json();
+  return data;
+};
+
 export const apiListFavourite = async(userId) => {
   const response = await fetch(
     `http://localhost:8888/api/favourites/${userId}`,

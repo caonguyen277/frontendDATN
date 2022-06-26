@@ -8,6 +8,7 @@ import {
   faStar,
   faStarHalfStroke,
   faStarOfLife,
+  faX,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   read,
@@ -18,6 +19,7 @@ import {
   apiListFavourite,
   apiAddFavourite,
   apiSubFavourite,
+  apiDeleteComment,
 } from "./apiCore";
 import CardProduct from "./Card";
 import moment from "moment";
@@ -55,13 +57,16 @@ const Product = (props) => {
   });
   const loadLikeCount = (likeCount) => {
     let items = [];
-    for(let i = 0; i < likeCount; i++){
-      items.push(<FontAwesomeIcon style = {{color : "#ffc107"}} icon = {faStar}></FontAwesomeIcon>)
+    for (let i = 0; i < likeCount; i++) {
+      items.push(
+        <FontAwesomeIcon
+          style={{ color: "#ffc107" }}
+          icon={faStar}
+        ></FontAwesomeIcon>
+      );
     }
-    return (
-      items
-    )
-  }
+    return items;
+  };
   //Favourite
   const handleAddFavourite = async () => {
     setFavourite(true);
@@ -108,6 +113,15 @@ const Product = (props) => {
   };
   const loadListComment = async (productId) => {
     const data = await apiListComment(productId);
+    if (data.error) {
+      return console.log(data.error);
+    }
+    setListComment(data.reverse());
+    console.log(listComment);
+  };
+  const handleDeleteComment = async (comment) => {
+    console.log(comment);
+    const data = await apiDeleteComment(comment, token);
     if (data.error) {
       return console.log(data.error);
     }
@@ -191,7 +205,7 @@ const Product = (props) => {
           <Row className="col-4">
             <ShowImage item={product} url="product" />
           </Row>
-          <Row className="col-5 pr-20" style={{ paddingRight: 70 }}>
+          <Row className="col-5 pr-20" style={{ paddingRight: 40 }}>
             <Card.Text>
               <h4 className="font-weight-bold">{product.name}</h4>
               <h5>Category: {product.category && product.category.name}</h5>
@@ -379,6 +393,9 @@ const Product = (props) => {
                                           <option value="4">4 Sao</option>
                                           <option value="5">5 Sao</option>
                                         </Form.Select>
+                                        <div style={{ textAlign: "center" }}>
+                                          {loadLikeCount(comment.likeCount)}
+                                        </div>
                                       </Form.Group>
                                     </Col>
                                   </Row>
@@ -393,21 +410,18 @@ const Product = (props) => {
                                       placeholder="Nhập đánh giá..."
                                     />
                                   </Form.Group>
+                                  <div style={{display :"flex",justifyContent: "flex-end",marginTop: "20px"}}>
                                   <Button
                                     type="submit"
-                                    style={{ width: "100px" }}
-                                    className="btn btn-primary"
+                                    style={{ width: "70px",color: "black" }}
+                                    variant="outline-warning"
                                   >
+                                    
                                     Gửi
                                   </Button>
+                                  </div>
+                                  
                                 </Form>
-                                <div>
-                                  <FontAwesomeIcon icon={faStar} />
-                                  <FontAwesomeIcon icon={faStar} />
-                                  <FontAwesomeIcon icon={faStar} />
-                                  <FontAwesomeIcon icon={faStar} />
-                                  <FontAwesomeIcon icon={faStar} />
-                                </div>
                               </Accordion.Body>
                             </Accordion.Item>
                           </Accordion>
@@ -432,7 +446,7 @@ const Product = (props) => {
                                   backgroundColor: "beige",
                                 }}
                               >
-                                <span>{el.user.name}</span>
+                                <h1>{el.user.name}</h1>
                                 <p>
                                   {el.updatedAt
                                     ? el.updatedAt.slice(0, 10)
@@ -449,24 +463,55 @@ const Product = (props) => {
                               >
                                 <div
                                   style={{
-                                    display:"flex",
+                                    display: "flex",
                                     alignItems: "center",
                                   }}
                                 >
                                   <div
-                                    style={{ maxHeight: "100%",display: "inline-block",width: "80%"}}
+                                    style={{
+                                      maxHeight: "100%",
+                                      display: "inline-block",
+                                      width: "80%",
+                                    }}
                                     className="div-Content-Commet"
                                   >
                                     <h6>Tiêu đề: {el.title}</h6>
                                     <p>Đánh giá: {el.content}</p>
                                   </div>
                                   <div
-                                    style={{ maxHeight: "100%",display: "inline-block"}}
+                                    style={{
+                                      maxHeight: "100%",
+                                      display: "inline-block",
+                                      width: "20%",
+                                      position: "relative",
+                                    }}
                                     className="div-likeCount-Comment"
                                   >
-                                    {
-                                      loadLikeCount(el.likeCount)
-                                    }
+                                    {isAuthenticated().user._id ===
+                                    el.user._id ? (
+                                      <div>
+                                        <span
+                                          onClick={() =>
+                                            handleDeleteComment(el)
+                                          }
+                                          style={{
+                                            cursor: "pointer",
+                                            right: "0",
+                                            top: "-37px",
+                                            position: "absolute",
+                                          }}
+                                        >
+                                          <FontAwesomeIcon
+                                            style={{ height: "0.7rem" }}
+                                            icon={faX}
+                                          ></FontAwesomeIcon>
+                                        </span>
+                                      </div>
+                                    ) : (
+                                      ""
+                                    )}
+
+                                    {loadLikeCount(el.likeCount)}
                                   </div>
                                 </div>
                               </div>

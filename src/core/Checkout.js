@@ -144,7 +144,7 @@ const Checkout = ({ products }) => {
       className="alert alert-danger"
       style={{ display: error ? "" : "none" }}
     >
-      "Vui lòng nhập địa chỉ trước khi thanh toán"
+      "Vui lòng nhập đủ thông tin trước khi thanh toán"
     </div>
   );
 
