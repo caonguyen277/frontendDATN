@@ -3,35 +3,24 @@ import Layout from "../core/Layout";
 import { isAuthenticated } from "../auth";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import { getBranches, deleteBranch } from "./apiAdmin";
+import {deleteComment, getComments } from "./apiAdmin";
 
-const ManageBranches = () => {
-  const [branches, setBranches] = useState([]);
+const ManagerComments = () => {
+  const [comments, setComment] = useState([]);
   const [success, setSuccess] = useState(false);
   const { user, token } = isAuthenticated();
 
-  const loadBranches = async () => {
-    const branches = await getBranches();
-    if (branches.data) return console.log(branches.data);
-    setBranches(branches);
+  const loadComments = async () => {
+    const comments = await getComments();
+    if (comments.data) return console.log(comments.data);
+    setComment(comments);
   };
 
-  const adminLinks = () => {
-    return (
-      <Link
-        className="text-secondary"
-        to="/create/branch"
-        style={{ borderRadius: "5px" }}
-      >
-        Create a new branch
-      </Link>
-    );
-  };
 
-  const branchDelete = async (branchId) => {
-    const branch = await deleteBranch(branchId, user._id, token);
-    if (branch.error) return console.log(branch.error);
-    loadBranches();
+  const commentDelete = async (commentId) => {
+    const comment = await deleteComment(commentId, user._id, token);
+    if (comment.error) return console.log(comment.error);
+    loadComments();
     setSuccess(true);
   };
 
@@ -42,7 +31,7 @@ const ManageBranches = () => {
           className="alert alert-success alert-dismissible fade show"
           role="alert"
         >
-          Branch delete successfully!!!
+          Comment delete successfully!!!
           <button
             type="button"
             class="close"
@@ -57,24 +46,23 @@ const ManageBranches = () => {
   };
 
   useEffect(() => {
-    loadBranches();
+    loadComments();
   }, []);
 
   return (
     <Layout className="container-fluid">
       {showSuccess()}
       <div className="card" style={{ paddingBottom: "20px" }}>
-        <h2  className="mt-2 text-center text-warning">Total {branches.length} branches</h2>
+        <h2  className="mt-2 text-center text-warning">Total {comments.length} comments</h2>
         <div
           style={{
             paddingLeft: "20px",
             paddingBottom: "10px",
           }}
         >
-          {adminLinks()}
         </div>
         <table
-          className="table-sm  table-bordered table-striped table-hover table-borderless text-lg-center"
+          className="table-sm  table-bordered table-striped table-hover text-lg-center"
           style={{
             color: "#495057",
             marginLeft: "20px",
@@ -83,16 +71,23 @@ const ManageBranches = () => {
         >
           <thead>
             <tr>
-              <th className="text-left">Product name</th>
+              <th className="text-left">Product id</th>
+              <th className="text-left">User name</th>
+              <th>Content</th>
               <th>Created on</th>
               <th>Update</th>
               <th>Delete</th>
             </tr>
           </thead>
           <tbody>
-            {branches.map((p, i) => (
+            {comments.map((p, i) => (
               <tr key={i}>
-                <td className="text-left">{p.name}</td>
+                <td className="text-left">{p.product._id}</td>
+                <td className="text-left">{p.user.name}</td>
+                <td className="text-left">
+                  <h1>Title : {p.title}</h1>
+                  <h1>Content : {p.content}</h1>
+                </td>
                 <td>{moment(p.createdAt).fromNow()}</td>
                 <td>
                   <Link
@@ -104,7 +99,7 @@ const ManageBranches = () => {
                 </td>
                 <td>
                   <button
-                    onClick={() => branchDelete(p._id)}
+                    onClick={() => commentDelete(p._id)}
                     className="text-muted"
                     style={{ border: "none", backgroundColor: "transparent" }}
                   >
@@ -120,4 +115,4 @@ const ManageBranches = () => {
   );
 };
 
-export default ManageBranches;
+export default ManagerComments;

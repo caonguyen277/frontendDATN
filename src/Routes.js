@@ -22,6 +22,7 @@ import ManageCategories from "./admin/ManaCategory";
 import UpdateCategory from "./admin/UpdateCate"
 import ManageBranches from "./admin/ManaBranch";
 import UpdateBranch from "./admin/UpdateBranch";
+import ManagerComments from "./admin/ManagerComments";
 import PageNotFound from "./core/notFound";
 const Routes = () => {
   return (
@@ -53,10 +54,15 @@ const Routes = () => {
           exact
           component={UpdateProduct}
         />
-        <PrivateRoute
+        <AdminRoute
           path="/admin/categories"
           exact
           component={ManageCategories}
+        />
+        <AdminRoute
+          path="/admin/comments"
+          exact
+          component={ManagerComments}
         />
         <AdminRoute path="/admin/category/update/:categoryId" exact component={UpdateCategory} />
         <Route path="" component={PageNotFound} />

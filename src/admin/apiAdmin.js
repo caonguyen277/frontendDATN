@@ -254,3 +254,25 @@ export const updateProduct = async (productId, userId, token, product) => {
   let data = await response.json();
   return data;
 };
+export const getComments = async () => {
+  const response = await fetch(`http://localhost:8888/api/comments`, {
+    method: "GET",
+  });
+  let data = await response.json();
+  return data;
+};
+export const deleteComment = async (commentId, userId, token) => {
+  const response = await fetch(
+    `http://localhost:8888/api/deleteComment/${commentId}/${userId}`,
+    {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  let data = await response.json();
+  return data;
+};

@@ -33,6 +33,11 @@ const AdminDashboard = () => {
               Manage Branches
             </Link>
           </li>
+          <li className="list-group-item">
+            <Link className="nav-link" to="/admin/comments">
+              Manage Comment
+            </Link>
+          </li>
         </ul>
       </div>
     );
