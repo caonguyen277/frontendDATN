@@ -36,7 +36,9 @@ import {
   Form,
   Accordion,
 } from "react-bootstrap";
+import Pagination from "react-bootstrap-4-pagination";
 import { isAuthenticated } from "../auth";
+import queryString from "query-string";
 const Product = (props) => {
   const [productId, setProductId] = useState("");
   const [favourite, setFavourite] = useState(false);
@@ -96,7 +98,36 @@ const Product = (props) => {
   const name = isAuthenticated() && isAuthenticated().user.name;
   const _id = isAuthenticated() && isAuthenticated().user._id;
   const token = isAuthenticated() && isAuthenticated().token;
-
+  //
+  //Pagination
+  const [totalRow, setTotalRow] = useState(1);
+  const [objPagi, setObjPagi] = useState({
+    page: 1,
+    perPage: 8,
+  });
+  let paginationConfig = {
+    totalPages: Math.ceil(totalRow / objPagi.perPage),
+    currentPage: objPagi.page,
+    showMax: 10,
+    size: "sm",
+    threeDots: true,
+    prevNext: true,
+    onClick: function (page) {
+      handleChangePage(page);
+    },
+  };
+  const handleChangePage = (pageChange) => {
+    setObjPagi({
+      ...objPagi,
+      page: pageChange,
+    });
+    console.log(objPagi);
+    loadListComment(productId, {
+      ...objPagi,
+      page: pageChange,
+    });
+  };
+  /////////////////////////////
   const changeContent = (name) => (e) => {
     // if(name = "likeCount") = parseInt(e.target.value);
     setComment({ ...comment, [name]: e.target.value });
@@ -109,14 +140,17 @@ const Product = (props) => {
     if (data.error) {
       return console.log(data.error);
     }
-    setListComment(data.reverse());
+    loadListComment(productId, objPagi);
   };
-  const loadListComment = async (productId) => {
-    const data = await apiListComment(productId);
+  const loadListComment = async (productId, obj) => {
+    const paramString = queryString.stringify(obj);
+    const data = await apiListComment(productId, paramString);
     if (data.error) {
       return console.log(data.error);
     }
-    setListComment(data.reverse());
+    setListComment(data.data);
+    if (data.totalRow === 0) setTotalRow(1);
+    else setTotalRow(data.totalRow);
     console.log(listComment);
   };
   const handleDeleteComment = async (comment) => {
@@ -125,7 +159,7 @@ const Product = (props) => {
     if (data.error) {
       return console.log(data.error);
     }
-    setListComment(data.reverse());
+    loadListComment(productId, objPagi);
     console.log(listComment);
   };
   const loadSingleCategoryProduct = async (productId) => {
@@ -190,8 +224,8 @@ const Product = (props) => {
     setProductId(productId);
     loadSingleCategoryProduct(productId);
     loadSingleBranchProduct(productId);
-    loadFavourite(_id, productId);
-    loadListComment(productId);
+    if(_id && loadFavourite(_id, productId))
+    loadListComment(productId, objPagi);
     setComment({ ...comment, product: productId, user: _id });
   }, [props.match.params.productId]);
 
@@ -244,7 +278,7 @@ const Product = (props) => {
               </Card.Text>
             </Card>
           </Row>
-          {favourite ? (
+          {_id ? favourite ? (
             <div
               style={{ position: "absolute", width: "100px", right: "-23px" }}
             >
@@ -266,11 +300,11 @@ const Product = (props) => {
                 icon={faHeart}
               />
             </div>
-          )}
+          ): ""}
         </Container>
       </Card>
       <Card style={{ border: "none", minHeight: "500px" }}>
-        <Container>
+        <Container id="#">
           <h4 style={{ marginTop: 20, marginBottom: 20 }}>
             Viết đánh giá sản phẩm
           </h4>
@@ -410,17 +444,21 @@ const Product = (props) => {
                                       placeholder="Nhập đánh giá..."
                                     />
                                   </Form.Group>
-                                  <div style={{display :"flex",justifyContent: "flex-end",marginTop: "20px"}}>
-                                  <Button
-                                    type="submit"
-                                    style={{ width: "70px",color: "black" }}
-                                    variant="outline-warning"
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "flex-end",
+                                      marginTop: "20px",
+                                    }}
                                   >
-                                    
-                                    Gửi
-                                  </Button>
+                                    <Button
+                                      type="submit"
+                                      style={{ width: "70px", color: "black" }}
+                                      variant="outline-warning"
+                                    >
+                                      Gửi
+                                    </Button>
                                   </div>
-                                  
                                 </Form>
                               </Accordion.Body>
                             </Accordion.Item>
@@ -518,6 +556,22 @@ const Product = (props) => {
                             </div>
                           </Row>
                         ))}
+                      {paginationConfig.totalPages === 1 ? (
+                        ""
+                      ) : (
+                        <div
+                          className="pagination"
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            marginTop: "20px",
+                          }}
+                        >
+                          <div className="App">
+                            <Pagination {...paginationConfig} />
+                          </div>
+                        </div>
+                      )}
                     </Tab.Pane>
                   </Tab.Content>
                 </Col>

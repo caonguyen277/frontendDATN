@@ -77,6 +77,7 @@ const Dashboard = () => {
                     <thead>
                       <tr>
                         <th className="text-left">Order ID</th>
+                        <th>Status</th>
                         <th>Product Name</th>
                         <th>Product Price</th>
                         <th>Quantity</th>
@@ -87,6 +88,7 @@ const Dashboard = () => {
                     {h.products.map((p, pIndex) => (
                       <tr key={pIndex}>
                         <td className="text-left">{h._id}</td>
+                        <td>{h.status}</td>
                         <td>{p.name}</td>
                         <td>{p.price}</td>
                         <td>{p.count}</td>

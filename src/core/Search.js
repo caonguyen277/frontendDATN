@@ -78,8 +78,8 @@ const Search = () => {
   };
 
   const searchForm = () => (
-    <form onSubmit={searchSubmit}>
-      <span style={{borderRadius : "50px"}} className="input-group-text">
+    <form style={{display:"flex", justifyContent:"center"}} onSubmit={searchSubmit}>
+      <span style={{borderRadius : "50px",height: "50px",width:"70%"}} className="input-group-text">
         <div className="input-group input-group-lg">
           <div className="input-group-prepend">
             <select className="btn mr-2" onChange={handleChange("category")}>

@@ -13,7 +13,7 @@ const ControlledCarousel = () => {
       <Carousel fade variant="dark">
       <Carousel.Item>
         <img
-        style={{maxWidth: '100%', maxHeight: 700, border: 'none'}}
+        style={{maxWidth: '100%', maxHeight: "100%", border: 'none'}}
           className="img-fluid d-block w-100"
           src={anh4}
           alt="First slide"

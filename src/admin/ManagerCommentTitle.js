@@ -3,62 +3,25 @@ import Layout from "../core/Layout";
 import { isAuthenticated } from "../auth";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import {addCommentTitle, deleteComment, getComments } from "./apiAdmin";
 import queryString from "query-string";
-import Pagination from "react-bootstrap-4-pagination";
+import { deleteCommentTitle, getCommentTitle } from "./apiAdmin";
 
 const ManagerComments = () => {
   const [comments, setComment] = useState([]);
   const [success, setSuccess] = useState(false);
   const { user, token } = isAuthenticated();
 
-  const loadComments = async (obj) => {
-    const paramString = queryString.stringify(obj);
-    const comments = await getComments(paramString);
-    console.log(comments.data);
-    setComment(comments.data);
-    setTotalRow(comments.totalRow);
-  };
-  //Pagination
-  const [totalRow, setTotalRow] = useState(1);
-  const [objPagi, setObjPagi] = useState({
-    page: 1,
-    perPage: 8,
-  });
-  let paginationConfig = {
-    totalPages: Math.ceil(totalRow / objPagi.perPage),
-    currentPage: objPagi.page,
-    showMax: 10,
-    size: "sm",
-    threeDots: true,
-    prevNext: true,
-    onClick: function (page) {
-      handleChangePage(page);
-    },
-  };
-  const handleChangePage = (pageChange) => {
-    setObjPagi({
-      ...objPagi,
-      page: pageChange,
-    });
-    console.log(objPagi);
-    loadComments({
-      ...objPagi,
-      page: pageChange,
-    });
+  const loadComments = async () => {
+    const comments = await getCommentTitle();
+    console.log(comments);
+    setComment(comments);
   };
   const commentDelete = async (commentId) => {
-    const comment = await deleteComment(commentId, user._id, token);
+    const comment = await deleteCommentTitle(commentId, user._id, token);
     if (comment.error) return console.log(comment.error);
-    loadComments(objPagi);
+    loadComments();
     setSuccess(true);
   };
-  const handleaddCommentTitle = async (commentId) => {
-    const comment = await addCommentTitle(commentId, user._id, token);
-    if (comment.error) return console.log(comment.error);
-    alert(comment.message)
-  };
-  
 
   const showSuccess = () => {
     if (success) {
@@ -82,7 +45,7 @@ const ManagerComments = () => {
   };
 
   useEffect(() => {
-    loadComments(objPagi);
+    loadComments();
   }, []);
 
   return (
@@ -111,7 +74,6 @@ const ManagerComments = () => {
               <th className="text-left">User name</th>
               <th>Content</th>
               <th>Created on</th>
-              <th>Update</th>
               <th>Delete</th>
             </tr>
           </thead>
@@ -126,15 +88,6 @@ const ManagerComments = () => {
                 </td>
                 <td>{moment(p.createdAt).fromNow()}</td>
                 <td>
-                <button
-                    onClick={() => handleaddCommentTitle(p._id)}
-                    className="text-muted"
-                    style={{ border: "none", backgroundColor: "transparent" }}
-                  >
-                    Add Title
-                  </button>
-                </td>
-                <td>
                   <button
                     onClick={() => commentDelete(p._id)}
                     className="text-muted"
@@ -147,14 +100,6 @@ const ManagerComments = () => {
             ))}
           </tbody>
         </table>
-        <div
-            className="pagination"
-            style={{ display: "flex", justifyContent: "center",marginTop:"20px" }}
-          >
-            <div className="App">
-              <Pagination {...paginationConfig} />
-            </div>
-          </div>
       </div>
     </Layout>
   );

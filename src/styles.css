@@ -124,18 +124,15 @@ a {
   transition: 0.3s all;
   margin: auto;
   border: 1px solid #ffc10782 !important;
+  border-radius: 10px;
 }
 .css-inputForm-Signup:focus {
   width: 95%;
-  border-radius: 10px;
-  box-shadow: 0px 1px 1px #b19696 !important;
+  box-shadow: 0px 0px 5px #c1c1c1 !important;
   border: 1px solid #ffc107 !important;
-}
-.css-inputForm-Search {
-  border: 1px solid #ffc10782 !important;
 }
 .css-inputForm-Search:focus {
-  border: 1px solid #ffc107 !important;
+  border: 1px solid #ffc10782 !important;
 }
 .css-DivImgCard-Product {
   transition: 0.5s all;

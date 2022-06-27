@@ -9,7 +9,7 @@ import { isAuthenticated } from "../auth";
 import { Link } from "react-router-dom";
 import "braintree-web";
 import DropIn from "braintree-web-drop-in-react";
-import { Card, Container } from "react-bootstrap";
+import { Button, Card, Container } from "react-bootstrap";
 
 const Checkout = ({ products }) => {
   const [data, setData] = useState({
@@ -49,7 +49,7 @@ const Checkout = ({ products }) => {
       <div>{showDropIn()}</div>
     ) : (
       <Link to="/signin">
-        <button className="btn btn-primary">Sign in to checkout</button>
+        <Button className="btn" variant="outline-warning">Đăng nhập để thanh toán</Button>
       </Link>
     );
   };

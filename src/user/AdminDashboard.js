@@ -38,6 +38,11 @@ const AdminDashboard = () => {
               Manage Comment
             </Link>
           </li>
+          <li className="list-group-item">
+            <Link className="nav-link" to="/admin/commentTitle">
+              Manage Comment Hot
+            </Link>
+          </li>
         </ul>
       </div>
     );

@@ -254,8 +254,8 @@ export const updateProduct = async (productId, userId, token, product) => {
   let data = await response.json();
   return data;
 };
-export const getComments = async () => {
-  const response = await fetch(`http://localhost:8888/api/comments`, {
+export const getComments = async (objPagi) => {
+  const response = await fetch(`http://localhost:8888/api/comments?${objPagi}`, {
     method: "GET",
   });
   let data = await response.json();
@@ -273,6 +273,43 @@ export const deleteComment = async (commentId, userId, token) => {
       },
     }
   );
+  let data = await response.json();
+  return data;
+};
+export const addCommentTitle = async (commentId, userId, token) => {
+  const response = await fetch(
+    `http://localhost:8888/api/addCommentTitle/${commentId}/${userId}`,
+    {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  let data = await response.json();
+  return data;
+};
+export const deleteCommentTitle = async (commentId, userId, token) => {
+  const response = await fetch(
+    `http://localhost:8888/api/deleteCommentTitle/${commentId}/${userId}`,
+    {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  let data = await response.json();
+  return data;
+};
+export const getCommentTitle = async () => {
+  const response = await fetch(`http://localhost:8888/api/commentTitle`, {
+    method: "GET",
+  });
   let data = await response.json();
   return data;
 };

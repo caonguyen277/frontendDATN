@@ -132,9 +132,9 @@ export const createOrder = async (userId, token, createOrder) => {
   let data = await response.json();
   return data;
 };
-export const apiListComment = async(productId) => {
+export const apiListComment = async(productId,objPagi) => {
   const response = await fetch(
-    `http://localhost:8888/api/comments/${productId}`,
+    `http://localhost:8888/api/comments/${productId}?${objPagi}`,
     {
       method: "GET",
     }
