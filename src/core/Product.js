@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./Layout";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCoffee,
@@ -224,7 +224,7 @@ const Product = (props) => {
     setProductId(productId);
     loadSingleCategoryProduct(productId);
     loadSingleBranchProduct(productId);
-    if(_id && loadFavourite(_id, productId))
+    _id && loadFavourite(_id, productId);
     loadListComment(productId, objPagi);
     setComment({ ...comment, product: productId, user: _id });
   }, [props.match.params.productId]);
@@ -278,29 +278,33 @@ const Product = (props) => {
               </Card.Text>
             </Card>
           </Row>
-          {_id ? favourite ? (
-            <div
-              style={{ position: "absolute", width: "100px", right: "-23px" }}
-            >
-              <FontAwesomeIcon
-                className="css-Icon"
-                onClick={() => handleSubFavourite()}
-                style={{ cursor: "pointer", color: "red" }}
-                icon={faHeart}
-              />
-            </div>
+          {_id ? (
+            favourite ? (
+              <div
+                style={{ position: "absolute", width: "100px", right: "-23px" }}
+              >
+                <FontAwesomeIcon
+                  className="css-Icon"
+                  onClick={() => handleSubFavourite()}
+                  style={{ cursor: "pointer", color: "red" }}
+                  icon={faHeart}
+                />
+              </div>
+            ) : (
+              <div
+                style={{ position: "absolute", width: "100px", right: "-23px" }}
+              >
+                <FontAwesomeIcon
+                  className="css-Icon"
+                  onClick={() => handleAddFavourite()}
+                  style={{ cursor: "pointer", color: "black" }}
+                  icon={faHeart}
+                />
+              </div>
+            )
           ) : (
-            <div
-              style={{ position: "absolute", width: "100px", right: "-23px" }}
-            >
-              <FontAwesomeIcon
-                className="css-Icon"
-                onClick={() => handleAddFavourite()}
-                style={{ cursor: "pointer", color: "black" }}
-                icon={faHeart}
-              />
-            </div>
-          ): ""}
+            ""
+          )}
         </Container>
       </Card>
       <Card style={{ border: "none", minHeight: "500px" }}>
@@ -394,7 +398,7 @@ const Product = (props) => {
                           marginBottom: "20px",
                         }}
                       ></div>
-                      {isAuthenticated() && (
+                      {isAuthenticated() ? (
                         <Row>
                           <Accordion>
                             <Accordion.Item eventKey="0">
@@ -464,6 +468,26 @@ const Product = (props) => {
                             </Accordion.Item>
                           </Accordion>
                         </Row>
+                      ) : (
+                        <Row>
+                          <Accordion>
+                            <Accordion.Item eventKey="0">
+                              <Accordion.Header>Viết đánh giá</Accordion.Header>
+                              <Accordion.Body>
+                                <Row style={{ textAlign: "center" }}>
+                                  <Link to="/signin">
+                                    <Button
+                                      className="btn"
+                                      variant="outline-warning"
+                                    >
+                                      Đăng nhập trước
+                                    </Button>
+                                  </Link>
+                                </Row>
+                              </Accordion.Body>
+                            </Accordion.Item>
+                          </Accordion>
+                        </Row>
                       )}
                       {listComment &&
                         listComment.map((el, index) => (
@@ -525,8 +549,9 @@ const Product = (props) => {
                                     }}
                                     className="div-likeCount-Comment"
                                   >
-                                    {isAuthenticated().user._id ===
-                                    el.user._id ? (
+                                    {isAuthenticated() &&
+                                    isAuthenticated().user._id ===
+                                      el.user._id ? (
                                       <div>
                                         <span
                                           onClick={() =>

@@ -59,10 +59,13 @@ const Favourite = () => {
               ))}
             </Row>
           ) : (
-            <Row style= {{textAlign:"center"}}><Link to="/signin">
-            <Button className="btn" variant="outline-warning">Đăng nhập trước</Button>
-          </Link></Row>
-            
+            <Row style={{ textAlign: "center" }}>
+              <Link to="/signin">
+                <Button className="btn" variant="outline-warning">
+                  Đăng nhập trước
+                </Button>
+              </Link>
+            </Row>
           )}
         </Col>
       </Row>

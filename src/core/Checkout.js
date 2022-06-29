@@ -153,7 +153,7 @@ const Checkout = ({ products }) => {
       className="alert alert-info"
       style={{ display: success ? "" : "none" }}
     >
-      Thanks! Your payment was successful!
+      Cảm ơn bạn! Thanh toán thành công
     </div>
   );
 
