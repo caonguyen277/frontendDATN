@@ -18,9 +18,9 @@ const Checkout = ({ products }) => {
     clientToken: null,
     error: "",
     instance: {},
-    address: ""
+    address: "",
   });
-
+  const [payOffice, setPayOffice] = useState(false);
   const userId = isAuthenticated() && isAuthenticated().user._id;
   const token = isAuthenticated() && isAuthenticated().token;
 
@@ -33,7 +33,7 @@ const Checkout = ({ products }) => {
   useEffect(() => {
     getToken(userId, token);
   }, []);
-
+  const handleClick = () => {};
   const handleAddress = (event) => {
     setData({ ...data, address: event.target.value });
   };
@@ -49,7 +49,9 @@ const Checkout = ({ products }) => {
       <div>{showDropIn()}</div>
     ) : (
       <Link to="/signin">
-        <Button className="btn" variant="outline-warning">Đăng nhập để thanh toán</Button>
+        <Button className="btn" variant="outline-warning">
+          Đăng nhập để thanh toán
+        </Button>
       </Link>
     );
   };
@@ -57,10 +59,31 @@ const Checkout = ({ products }) => {
   let deliveryAddress = data.address;
 
   const buy = () => {
-    if(deliveryAddress === undefined){
+    if (deliveryAddress === undefined) {
       return setData({ ...data, error: true });
-      }
+    }
     setData({ loading: true });
+    if (payOffice) {
+      const createOrderData = {
+        products: products,
+        amount: getTotal(products),
+        address: deliveryAddress,
+      };
+      createOrder(userId, token, createOrderData)
+        .then((response) => {
+          emptyCart(() => {
+            console.log("payment success and empty cart");
+            return setData({
+              loading: false,
+              success: true,
+            });
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+          setData({ loading: false });
+        });
+    }
     let nonce;
     let getNonce = data.instance
       .requestPaymentMethod()
@@ -117,8 +140,20 @@ const Checkout = ({ products }) => {
               placeholder="Type your delivery address here..."
             />
           </div>
-
+          <div
+            onClick={() => setPayOffice(!payOffice)}
+            style={{
+              padding: "10px",
+              transition: "all .2s",
+              border: payOffice ? "2px solid #219653" : "1px solid #b5b5b5",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            Thanh toán khi nhận hàng
+          </div>  
           <DropIn
+          disabled
             options={{
               authorization: data.clientToken,
               paypal: {

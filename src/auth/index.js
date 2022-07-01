@@ -1,5 +1,5 @@
 export const signup = async (user) => {
-  const response = await fetch(`http://localhost:8888/api/signup`, {
+  const response = await fetch(`https://backenddatn.herokuapp.com/api/signup`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -12,7 +12,7 @@ export const signup = async (user) => {
 };
 
 export const signin = async (user) => {
-  const response = await fetch(`http://localhost:8888/api/signin`, {
+  const response = await fetch(`https://backenddatn.herokuapp.com/api/signin`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -35,7 +35,7 @@ export const signout = async (next) => {
   if (typeof window !== "undefined") {
     localStorage.removeItem("jwt");
     next();
-    const response = await fetch(`http://localhost:8888/api/signout`, {
+    const response = await fetch(`https://backenddatn.herokuapp.com/api/signout`, {
       method: "GET",
     });
     let data = await response.json();

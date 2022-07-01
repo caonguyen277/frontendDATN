@@ -1,6 +1,6 @@
 export let createCategory = async (userId, token, category) => {
   const response = await fetch(
-    `http://localhost:8888/api/createCategory/${userId}`,
+    `https://backenddatn.herokuapp.com/api/createCategory/${userId}`,
     {
       method: "POST",
       headers: {
@@ -18,7 +18,7 @@ export let createCategory = async (userId, token, category) => {
 
 export const createBranch = async (userId, token, branch) => {
   const response = await fetch(
-    `http://localhost:8888/api/createBranch/${userId}`,
+    `https://backenddatn.herokuapp.com/api/createBranch/${userId}`,
     {
       method: "POST",
       headers: {
@@ -36,7 +36,7 @@ export const createBranch = async (userId, token, branch) => {
 
 export const createProduct = async (userId, token, product) => {
   const response = await fetch(
-    `http://localhost:8888/api/createProduct/${userId}`,
+    `https://backenddatn.herokuapp.com/api/createProduct/${userId}`,
     {
       method: "POST",
       headers: {
@@ -51,7 +51,7 @@ export const createProduct = async (userId, token, product) => {
 };
 
 export let getCategories = async () => {
-  const response = await fetch(`http://localhost:8888/api/categories`, {
+  const response = await fetch(`https://backenddatn.herokuapp.com/api/categories`, {
     method: "GET",
   });
   let data = await response.json();
@@ -60,7 +60,7 @@ export let getCategories = async () => {
 
 export const getCategory = async (categoryId) => {
   const response = await fetch(
-    `http://localhost:8888/api/adminCategory/${categoryId}`,
+    `https://backenddatn.herokuapp.com/api/adminCategory/${categoryId}`,
     {
       method: "GET",
     }
@@ -71,7 +71,7 @@ export const getCategory = async (categoryId) => {
 
 export const getBranch = async (branchId) => {
   const response = await fetch(
-    `http://localhost:8888/api/adminBranch/${branchId}`,
+    `https://backenddatn.herokuapp.com/api/adminBranch/${branchId}`,
     {
       method: "GET",
     }
@@ -82,7 +82,7 @@ export const getBranch = async (branchId) => {
 
 export const updateCategory = async (categoryId, userId, token, category) => {
   const response = await fetch(
-    `http://localhost:8888/api/updateCategory/${categoryId}/${userId}`,
+    `https://backenddatn.herokuapp.com/api/updateCategory/${categoryId}/${userId}`,
     {
       method: "PUT",
       headers: {
@@ -99,7 +99,7 @@ export const updateCategory = async (categoryId, userId, token, category) => {
 
 export const updateBranch = async (branchId, userId, token, branch) => {
   const response = await fetch(
-    `http://localhost:8888/api/updateBranch/${branchId}/${userId}`,
+    `https://backenddatn.herokuapp.com/api/updateBranch/${branchId}/${userId}`,
     {
       method: "PUT",
       headers: {
@@ -115,7 +115,7 @@ export const updateBranch = async (branchId, userId, token, branch) => {
 };
 
 export const getBranches = async () => {
-  const response = await fetch(`http://localhost:8888/api/branches`, {
+  const response = await fetch(`https://backenddatn.herokuapp.com/api/branches`, {
     method: "GET",
   });
   let data = await response.json();
@@ -124,7 +124,7 @@ export const getBranches = async () => {
 
 export const listOrders = async (userId, token) => {
   const response = await fetch(
-    `http://localhost:8888/api/order/list/${userId}`,
+    `https://backenddatn.herokuapp.com/api/order/list/${userId}`,
     {
       method: "GET",
       headers: {
@@ -139,7 +139,7 @@ export const listOrders = async (userId, token) => {
 
 export const getStatusValues = async (userId, token) => {
   const response = await fetch(
-    `http://localhost:8888/api/order/status-values/${userId}`,
+    `https://backenddatn.herokuapp.com/api/order/status-values/${userId}`,
     {
       method: "GET",
       headers: {
@@ -154,7 +154,7 @@ export const getStatusValues = async (userId, token) => {
 
 export const updateOrderStatus = async (userId, token, orderId, status) => {
   const response = await fetch(
-    `http://localhost:8888/api/order/${orderId}/status/${userId}`,
+    `https://backenddatn.herokuapp.com/api/order/${orderId}/status/${userId}`,
     {
       method: "PUT",
       headers: {
@@ -171,7 +171,7 @@ export const updateOrderStatus = async (userId, token, orderId, status) => {
 
 export const getProducts = async () => {
   const response = await fetch(
-    `http://localhost:8888/api/products?limit=undefined`,
+    `https://backenddatn.herokuapp.com/api/products?limit=undefined`,
     {
       method: "GET",
     }
@@ -182,7 +182,7 @@ export const getProducts = async () => {
 
 export const deleteProduct = async (productId, userId, token) => {
   const response = await fetch(
-    `http://localhost:8888/api/deleteProduct/${productId}/${userId}`,
+    `https://backenddatn.herokuapp.com/api/deleteProduct/${productId}/${userId}`,
     {
       method: "DELETE",
       headers: {
@@ -198,7 +198,7 @@ export const deleteProduct = async (productId, userId, token) => {
 
 export const deleteCategory = async (categoryId, userId, token) => {
   const response = await fetch(
-    `http://localhost:8888/api/deleteCategory/${categoryId}/${userId}`,
+    `https://backenddatn.herokuapp.com/api/deleteCategory/${categoryId}/${userId}`,
     {
       method: "DELETE",
       headers: {
@@ -214,7 +214,7 @@ export const deleteCategory = async (categoryId, userId, token) => {
 
 export const deleteBranch = async (branchId, userId, token) => {
   const response = await fetch(
-    `http://localhost:8888/api/deleteBranch/${branchId}/${userId}`,
+    `https://backenddatn.herokuapp.com/api/deleteBranch/${branchId}/${userId}`,
     {
       method: "DELETE",
       headers: {
@@ -230,7 +230,7 @@ export const deleteBranch = async (branchId, userId, token) => {
 
 export const getProduct = async (productId) => {
   const response = await fetch(
-    `http://localhost:8888/api/adminProduct/${productId}`,
+    `https://backenddatn.herokuapp.com/api/adminProduct/${productId}`,
     {
       method: "GET",
     }
@@ -241,7 +241,7 @@ export const getProduct = async (productId) => {
 
 export const updateProduct = async (productId, userId, token, product) => {
   const response = await fetch(
-    `http://localhost:8888/api/updateProduct/${productId}/${userId}`,
+    `https://backenddatn.herokuapp.com/api/updateProduct/${productId}/${userId}`,
     {
       method: "PUT",
       headers: {
@@ -255,7 +255,7 @@ export const updateProduct = async (productId, userId, token, product) => {
   return data;
 };
 export const getComments = async (objPagi) => {
-  const response = await fetch(`http://localhost:8888/api/comments?${objPagi}`, {
+  const response = await fetch(`https://backenddatn.herokuapp.com/api/comments?${objPagi}`, {
     method: "GET",
   });
   let data = await response.json();
@@ -263,7 +263,7 @@ export const getComments = async (objPagi) => {
 };
 export const deleteComment = async (commentId, userId, token) => {
   const response = await fetch(
-    `http://localhost:8888/api/deleteComment/${commentId}/${userId}`,
+    `https://backenddatn.herokuapp.com/api/deleteComment/${commentId}/${userId}`,
     {
       method: "DELETE",
       headers: {
@@ -278,7 +278,7 @@ export const deleteComment = async (commentId, userId, token) => {
 };
 export const addCommentTitle = async (commentId, userId, token) => {
   const response = await fetch(
-    `http://localhost:8888/api/addCommentTitle/${commentId}/${userId}`,
+    `https://backenddatn.herokuapp.com/api/addCommentTitle/${commentId}/${userId}`,
     {
       method: "PUT",
       headers: {
@@ -293,7 +293,7 @@ export const addCommentTitle = async (commentId, userId, token) => {
 };
 export const deleteCommentTitle = async (commentId, userId, token) => {
   const response = await fetch(
-    `http://localhost:8888/api/deleteCommentTitle/${commentId}/${userId}`,
+    `https://backenddatn.herokuapp.com/api/deleteCommentTitle/${commentId}/${userId}`,
     {
       method: "DELETE",
       headers: {
@@ -307,9 +307,21 @@ export const deleteCommentTitle = async (commentId, userId, token) => {
   return data;
 };
 export const getCommentTitle = async () => {
-  const response = await fetch(`http://localhost:8888/api/commentTitle`, {
+  const response = await fetch(`https://backenddatn.herokuapp.com/api/commentTitle`, {
     method: "GET",
   });
   let data = await response.json();
   return data;
 };
+export const getStatisticalProduct = async(userId,token,month) => {
+  const response = await fetch(`https://backenddatn.herokuapp.com/api/statisticalProduct/${month}/${userId}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  let data = await response.json();
+  return data;
+}

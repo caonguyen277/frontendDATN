@@ -12,7 +12,7 @@ const Profile = ({ match }) => {
     error: false,
     success: false,
   });
-
+  const [showDis,setShowDis] = useState(true);
   const { token } = isAuthenticated();
   const { name, email, password, success } = values;
 
@@ -57,39 +57,44 @@ const Profile = ({ match }) => {
   };
 
   const profileUpdate = (name, email, password) => (
-    <form>
-      <div className="form-group">
+    <form onSubmit={(e) => clickSubmit(e)}>
+      <div style={{marginLeft: "25%",width: "50%"}} className="form-group">
         <label className="text-muted">Name</label>
         <input
+        required
           type="text"
           onChange={handleChange("name")}
-          className="form-control"
+          className="form-control css-inputForm-Signup"
           value={name}
         />
       </div>
-      <div className="form-group">
+      <div style={{marginLeft: "25%",width: "50%"}} className="form-group">
         <label className="text-muted">Email</label>
         <input
+        required
           type="email"
           onChange={handleChange("email")}
-          className="form-control"
+          className="form-control css-inputForm-Signup"
           value={email}
         />
       </div>
-      <div className="form-group">
+      <div style={{marginLeft: "25%",width: "50%"}} className="form-group">
         <label className="text-muted">Password</label>
         <input
+          disabled = {showDis}
           type="password"
           onChange={handleChange("password")}
-          className="form-control"
+          className="form-control css-inputForm-Signup" 
           value={password}
         />
+          
       </div>
 
-      <button onClick={clickSubmit} className="btn btn-primary">
+      <button type="submit" style={{marginLeft: "68%"}}  className="btn btn-warning">
         Submit
       </button>
     </form>
+    
   );
 
   return (
@@ -101,6 +106,7 @@ const Profile = ({ match }) => {
       <h2 className="mb-4">Profile update</h2>
       {profileUpdate(name, email, password)}
       {redirectUser(success)}
+      <button onClick={() => setShowDis(!showDis)} className="mt-2 btn btn-warning">Update Password</button>
     </Layout>
   );
 };

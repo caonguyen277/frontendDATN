@@ -1,7 +1,7 @@
 // import { API } from "../config";
 
 export const read = (userId, token) => {
-  return fetch(`http://localhost:8888/api/user/${userId}`, {
+  return fetch(`https://backenddatn.herokuapp.com/api/user/${userId}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -16,7 +16,7 @@ export const read = (userId, token) => {
 };
 
 export const update = (userId, token, user) => {
-  return fetch(`http://localhost:8888/api/user/${userId}`, {
+  return fetch(`https://backenddatn.herokuapp.com/api/user/${userId}`, {
     method: "PUT",
     headers: {
       Accept: "application/json",
@@ -43,7 +43,7 @@ export const updateUser = (user, next) => {
 };
 
 export const getPurchaseHistory = (userId, token) => {
-  return fetch(`http://localhost:8888/api/orders/by/user/${userId}`, {
+  return fetch(`https://backenddatn.herokuapp.com/api/orders/by/user/${userId}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
