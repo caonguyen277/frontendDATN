@@ -98,9 +98,11 @@ const Dashboard = () => {
                         <td>{p.price}</td>
                         <td>{p.count}</td>
                         <td>{h.address}</td>
-                        <td>{moment(p.createdAt).fromNow()}</td>
+                        <td>{moment(h.createdAt).fromNow()}</td>
                       </tr>
                     ))}
+                    <tr><td>Amount : {h.amount}</td></tr>
+                    
                     <br />
                   </Table>
                 </div>

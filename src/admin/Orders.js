@@ -4,23 +4,56 @@ import { isAuthenticated } from "../auth";
 import { listOrders, getStatusValues, updateOrderStatus } from "./apiAdmin";
 import moment from "moment";
 import Table from "react-bootstrap/Table";
-
+import queryString from "query-string";
+import Pagination from "react-bootstrap-4-pagination";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [statusValues, setStatusValues] = useState([]);
   const { user, token } = isAuthenticated();
 
-  const loadOrders = () => {
-    listOrders(user._id, token).then((data) => {
+  const loadOrders = (obj) => {
+    const paramString = queryString.stringify(obj);
+    listOrders(user._id, token,paramString).then((data) => {
       if (data.error) {
         console.log("fail ");
       } else {
-        setOrders(data);
+        setOrders(data.data);
+        setTotalRow(data.totalRow);
         console.log("ok");
       }
     });
   };
-
+  //Pagination
+  const [totalRow, setTotalRow] = useState(1);
+  const [objPagi, setObjPagi] = useState({
+    page: 1,
+    perPage: 8,
+  });
+  let paginationConfig = {
+    totalPages: Math.ceil(totalRow / objPagi.perPage),
+    currentPage: objPagi.page,
+    showMax: 10,
+    size: "sm",
+    threeDots: true,
+    prevNext: true,
+    onClick: function (page) {
+      handleChangePage(page);
+    },
+  };
+  const handleChangePage = (pageChange) => {
+    setObjPagi({
+      ...objPagi,
+      page: pageChange,
+    });
+    console.log(objPagi);
+    loadOrders({
+      ...objPagi,
+      page: pageChange,
+    });
+  };
+  //////////////////////////////
   const loadStatusValues = () => {
     getStatusValues(user._id, token).then((data) => {
       if (data.error) {
@@ -32,7 +65,7 @@ const Orders = () => {
   };
 
   useEffect(() => {
-    loadOrders();
+    loadOrders(objPagi);
     loadStatusValues();
   }, []);
 
@@ -49,11 +82,23 @@ const Orders = () => {
       if (data.error) {
         console.log("Status update failed");
       } else {
-        loadOrders();
+        loadOrders(objPagi);
       }
     });
   };
-
+  const showComplete = (status) => {
+    if(status !== "Not processed") {
+      return <div style={{color: "white",
+        padding: "10px 15px",
+        top: "107px",
+        left: "-53px",
+        backgroundColor: "#55bd55",
+        position: "absolute",
+        borderRadius: "50%"}}>
+        <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
+      </div> 
+    }
+  }
   const showStatus = (o) => (
     <div className="form-group">
       <h3 className="mark mb-4">{o.status}</h3>
@@ -84,7 +129,7 @@ const Orders = () => {
                 className="shadow"
                 size="sm"
                 key={oIndex}
-                style={{ backgroundColor: "#ffffff" }}
+                style={{ backgroundColor: "#ffffff",position:"relative" }}
               >
                 <thead>
                   <tr>
@@ -123,9 +168,18 @@ const Orders = () => {
                     </tr>
                   ))}
                 </tbody>
+                {showComplete(o.status)}
               </Table>
             );
           })}
+          <div
+            className="pagination"
+            style={{ display: "flex", justifyContent: "center",marginTop:"20px" }}
+          >
+            <div className="App">
+              <Pagination {...paginationConfig} />
+            </div>
+          </div>
         </div>
       </div>
     </Layout>

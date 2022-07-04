@@ -14,6 +14,9 @@ const Profile = ({ match }) => {
   });
   const [showDis,setShowDis] = useState(true);
   const { token } = isAuthenticated();
+  const {
+    user: {role },
+  } = isAuthenticated();
   const { name, email, password, success } = values;
 
   const init = async (userId) => {
@@ -51,9 +54,11 @@ const Profile = ({ match }) => {
   };
 
   const redirectUser = (success) => {
-    if (success) {
+    if (success && role === 0) {
       return <Redirect to="/user/dashboard" />;
     }
+    if(success && role ===1)
+    return <Redirect to ="/admin/dashboard"/>;
   };
 
   const profileUpdate = (name, email, password) => (

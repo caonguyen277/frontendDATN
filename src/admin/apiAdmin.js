@@ -122,9 +122,9 @@ export const getBranches = async () => {
   return data;
 };
 
-export const listOrders = async (userId, token) => {
+export const listOrders = async (userId, token,obj) => {
   const response = await fetch(
-    `https://backenddatn.herokuapp.com/api/order/list/${userId}`,
+    `https://backenddatn.herokuapp.com/api/order/list/${userId}?${obj}`,
     {
       method: "GET",
       headers: {
