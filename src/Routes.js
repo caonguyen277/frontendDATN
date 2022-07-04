@@ -16,6 +16,7 @@ import Cart from "./core/Cart";
 import Favourite from "./core/Favourite"
 import Orders from "./admin/Orders";
 import Profile from "./user/Profile";
+import OrderByUser from "./user/OrderByUser";
 import ManageProducts from "./admin/ManageProducts";
 import UpdateProduct from "./admin/UpdateProduct";
 import ManageCategories from "./admin/ManaCategory";
@@ -35,6 +36,7 @@ const Routes = () => {
         <Route path="/signin" exact component={Signin} />
         <Route path="/signup" exact component={Signup} />
         <PrivateRoute path="/user/dashboard" exact component={Dashboard} />
+        <PrivateRoute path="/user/orders" exact component={OrderByUser} />
         <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
         <AdminRoute path="/create/category" exact component={AddCategory} />
         <AdminRoute path="/create/branch" exact component={AddBranch} />

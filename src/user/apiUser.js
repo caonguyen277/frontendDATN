@@ -42,8 +42,8 @@ export const updateUser = (user, next) => {
   }
 };
 
-export const getPurchaseHistory = (userId, token) => {
-  return fetch(`https://backenddatn.herokuapp.com/api/orders/by/user/${userId}`, {
+export const getPurchaseHistory = (userId, token,objPagi) => {
+  return fetch(`https://backenddatn.herokuapp.com/orders/by/user/${userId}?${objPagi}`, {
     method: "GET",
     headers: {
       Accept: "application/json",

@@ -1,28 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Layout from "../core/Layout";
 import { isAuthenticated } from "../auth";
 import { Link } from "react-router-dom";
-import { getPurchaseHistory } from "./apiUser";
-import moment from "moment";
-import Table from "react-bootstrap/Table";
 
 const Dashboard = () => {
-  const [history, setHistory] = useState([]);
-
   const {
     user: { _id, name, email, role },
   } = isAuthenticated();
-  const token = isAuthenticated().token;
-
-  const init = async (userId, token) => {
-    const purchaseHistory = await getPurchaseHistory(userId, token);
-    if (purchaseHistory.error) return console.log(purchaseHistory.error);
-    setHistory(purchaseHistory);
-  };
-
-  useEffect(() => {
-    init(_id, token);
-  }, []);
 
   const userLinks = () => {
     return (
@@ -42,6 +26,11 @@ const Dashboard = () => {
           <li className="list-group-item">
             <Link className="nav-link style-link" to={`/profile/${_id}`}>
               Update Profile
+            </Link>
+          </li>
+          <li className="list-group-item">
+            <Link className="nav-link style-link" to={`/user/orders`}>
+              Order
             </Link>
           </li>
         </ul>
@@ -64,56 +53,6 @@ const Dashboard = () => {
     );
   };
 
-  const purchaseHistory = (history) => {
-    return (
-      <div>
-        <h3 className="card-header">Purchase history</h3>
-        <ul className="list-group">
-          <li className="list-group-item">
-            {history.map((h, i) => {
-              return (
-                <div>
-                  <Table
-                    hover
-                    key={i}
-                    size="sm"
-                    className="text-xs-center text-lg-center"
-                  >
-                    <thead>
-                      <tr>
-                        <th className="text-left">Order ID</th>
-                        <th>Status</th>
-                        <th>Product Name</th>
-                        <th>Product Price</th>
-                        <th>Quantity</th>
-                        <th>Address</th>
-                        <th>Purchased Date</th>
-                      </tr>
-                    </thead>
-                    {h.products.map((p, pIndex) => (
-                      <tr key={pIndex}>
-                        <td className="text-left">{h._id}</td>
-                        <td>{h.status}</td>
-                        <td>{p.name}</td>
-                        <td>{p.price}</td>
-                        <td>{p.count}</td>
-                        <td>{h.address}</td>
-                        <td>{moment(h.createdAt).fromNow()}</td>
-                      </tr>
-                    ))}
-                    <tr><td>Amount : {h.amount}</td></tr>
-                    
-                    <br />
-                  </Table>
-                </div>
-              );
-            })}
-          </li>
-        </ul>
-      </div>
-    );
-  };
-
   return (
     <Layout
       title="Dashboard"
@@ -122,10 +61,7 @@ const Dashboard = () => {
     >
       <div className="row">
         <div className="col-3">{userLinks()}</div>
-        <div className="col-9">
-          {userInfo()}
-          {purchaseHistory(history)}
-        </div>
+        <div className="col-9">{userInfo()}</div>
       </div>
     </Layout>
   );
