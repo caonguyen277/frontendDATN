@@ -47,7 +47,7 @@ const Favourite = () => {
               icon={faHeart}
             />
           </div>
-          <h6 style={{ textAlign: "center" }}>Danh Mục sản phẩm yêu thích</h6>
+          <h6 style={{ textAlign: "center" }}>List of favorite products</h6>
         </Col>
         <Col sm={9}>
           {isAuthenticated() ? (

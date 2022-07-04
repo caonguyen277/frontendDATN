@@ -5,6 +5,7 @@ const Checkbox = ({ categories, handleFilters }) => {
 
   const handleToggle = (c) => () => {
     const currentCategoryId = checked.indexOf(c);
+    console.log(currentCategoryId);
     const newCheckedCategoryId = [...checked];
     if (currentCategoryId === -1) {
       newCheckedCategoryId.push(c);

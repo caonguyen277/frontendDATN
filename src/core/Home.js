@@ -85,7 +85,7 @@ const Home = () => {
           ))}
         </Slider>
       </Row>
-      <h2 className="mb-4">Good Review</h2>
+      <h2 className="mb-4">Good Reviews</h2>
       <Row xs={2} md={2} lg={3} xl={5}>
         {comments.map((comment, i) => (
           <Col key={i} className="mb-3">

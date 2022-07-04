@@ -310,7 +310,7 @@ const Product = (props) => {
       <Card style={{ border: "none", minHeight: "500px" }}>
         <Container id="#">
           <h4 style={{ marginTop: 20, marginBottom: 20 }}>
-            Viết đánh giá sản phẩm
+          Write Review On Lilem
           </h4>
           <>
             <Tab.Container id="left-tabs-example" defaultActiveKey="first">

@@ -150,7 +150,8 @@ const Checkout = ({ products }) => {
               cursor: "pointer",
             }}
           >
-            Thanh toán khi nhận hàng
+            Cash on delivery
+
           </div>  
           <DropIn
           disabled
