@@ -110,7 +110,7 @@ const OrderByUser = () => {
       <div className="row">
         <div className="col-12">
           {showOrdersLength()}
-          {purchaseHistory(history)};
+          {purchaseHistory(history)}
           <div
             className="pagination"
             style={{ display: "flex", justifyContent: "center",marginTop:"20px" }}
