@@ -35,6 +35,7 @@ const Profile = ({ match }) => {
 
   const clickSubmit = (e) => {
     e.preventDefault();
+    console.log({ name, email, password });
     update(match.params.userId, token, { name, email, password }).then(
       (data) => {
         if (data.error) {

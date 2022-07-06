@@ -178,7 +178,7 @@ const Checkout = ({ products }) => {
   const showError = (error) => (
     <div
       className="alert alert-danger"
-      style={{ display: error ? "" : "none" }}
+      style={{ display: error === true ? "" : "none" }}
     >
       "Vui lòng nhập đủ thông tin trước khi thanh toán"
     </div>
