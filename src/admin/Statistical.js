@@ -21,7 +21,7 @@ import { Button, Form } from "react-bootstrap";
 const ManageBranches = () => {
   const [data, setData] = useState([]);
   const { user, token } = isAuthenticated();
-  const [month, setMonth] = useState("Jun");
+  const [month, setMonth] = useState("Jul");
   const loadData = async () => {
     const data = await getStatisticalProduct(user._id,token,month);
     if (data.error) return console.log(data.error);
@@ -85,27 +85,22 @@ const ManageBranches = () => {
           style={{ display: "flex", justifyContent: "center", padding: "20px" }}
         >
             
-            <LineChart
+            <BarChart
               width={1000}
-              height={300}
+              height={400}
               data={data}
               margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
+              <XAxis dataKey="name"/>
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line
-                type="monotone"
-                dataKey="amount"
-                stroke="#8884d8"
-                activeDot={{ r: 8 }}
-              />
-            </LineChart>
+              <Bar dataKey="amount" fill="#8884d8" />
+            </BarChart>
             
         </div>
-        <h2 className="mt-2 text-center" style= {{color: "#8884d8"}}>
+        <h2 className="mt-2 text-center" style= {{color: "#82ca9d"}}>
           Biểu đồ thống kê số lượng sản phẩm đã bán
         </h2>
         <h2>Tổng số sản phẩm đã bán: {data !== [] ? getTotal("sold") : 0}</h2>
@@ -114,7 +109,7 @@ const ManageBranches = () => {
         >
             <BarChart
               width={1000}
-              height={300}
+              height={400}
               data={data}
               margin={{
                 top: 5,
@@ -128,7 +123,7 @@ const ManageBranches = () => {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey="sold" fill="#8884d8" />
+              <Bar dataKey="sold" fill="#82ca9d" />
             </BarChart>
             
         </div>

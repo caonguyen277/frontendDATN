@@ -132,12 +132,12 @@ const Checkout = ({ products }) => {
       {data.clientToken !== null && products.length > 0 ? (
         <div>
           <div className="form-group mb-3">
-            <label className="text-muted">Delivery address:</label>
+            <label className="text-muted">Delivery address and phone number:</label>
             <textarea
               onChange={handleAddress}
               className="form-control"
               value={data.address}
-              placeholder="Type your delivery address here..."
+              placeholder="Type your delivery address (phone number) here..."
             />
           </div>
           <div

@@ -215,3 +215,19 @@ export const apiSubFavourite = async (productId,userId) => {
   let data = await response.json();
   return data;
 };
+export const apiCheckOrder = async (productId,userId,token) => {
+  const response = await fetch(
+    `http://localhost:8888/api/checkOrder/${userId}`,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(productId),
+    }
+  );
+  let data = await response.json();
+  return data;
+};
