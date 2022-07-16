@@ -217,7 +217,7 @@ export const apiSubFavourite = async (productId,userId) => {
 };
 export const apiCheckOrder = async (productId,userId,token) => {
   const response = await fetch(
-    `http://localhost:8888/api/checkOrder/${userId}`,
+    `https://backenddatn.herokuapp.com/api/checkOrder/${userId}`,
     {
       method: "POST",
       headers: {
@@ -225,7 +225,7 @@ export const apiCheckOrder = async (productId,userId,token) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(productId),
+      body: JSON.stringify({productId: productId}),
     }
   );
   let data = await response.json();

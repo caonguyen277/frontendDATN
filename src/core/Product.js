@@ -20,6 +20,7 @@ import {
   apiAddFavourite,
   apiSubFavourite,
   apiDeleteComment,
+  apiCheckOrder,
 } from "./apiCore";
 import CardProduct from "./Card";
 import moment from "moment";
@@ -48,6 +49,13 @@ const Product = (props) => {
   const [relatedCategoryProduct, setRelatedCategoryProduct] = useState([]);
   const [relatedBranchProduct, setRelatedBranchProduct] = useState([]);
   const [redirect, setRedirect] = useState(false);
+  //Check order
+  const [checkOrder,setCheckOrder] = useState(false);
+  const funcCheckOrder = async (productId) => {
+    const data = await apiCheckOrder(productId,_id,token);
+    setCheckOrder(data);
+    console.log(checkOrder);
+  }
   // Comment
   const [listComment, setListComment] = useState([]);
   const [comment, setComment] = useState({
@@ -222,6 +230,7 @@ const Product = (props) => {
   useEffect(() => {
     const productId = props.match.params.productId;
     setProductId(productId);
+    funcCheckOrder(productId);
     loadSingleCategoryProduct(productId);
     loadSingleBranchProduct(productId);
     _id && loadFavourite(_id, productId);
@@ -398,7 +407,7 @@ const Product = (props) => {
                           marginBottom: "20px",
                         }}
                       ></div>
-                      {isAuthenticated() ? (
+                      {isAuthenticated() && checkOrder === true ? (
                         <Row>
                           <Accordion>
                             <Accordion.Item eventKey="0">
@@ -468,8 +477,29 @@ const Product = (props) => {
                             </Accordion.Item>
                           </Accordion>
                         </Row>
-                      ) : (
+                      ) : isAuthenticated() && checkOrder === false ? (
                         <Row>
+                          <Accordion>
+                            <Accordion.Item eventKey="0">
+                              <Accordion.Header>Viết đánh giá</Accordion.Header>
+                              <Accordion.Body>
+                                <Row style={{ textAlign: "center" }}>
+                                  <Link to="/cart">
+                                    <Button
+                                      onClick={addToCart}
+                                      className="btn"
+                                      variant="outline-warning"
+                                    >
+                                      Bạn chưa tạo thanh toán
+                                    </Button>
+                                  </Link>
+                                </Row>
+                              </Accordion.Body>
+                            </Accordion.Item>
+                          </Accordion>
+                        </Row>
+                      ) : (
+                      <Row>
                           <Accordion>
                             <Accordion.Item eventKey="0">
                               <Accordion.Header>Viết đánh giá</Accordion.Header>
