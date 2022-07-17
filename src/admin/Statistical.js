@@ -86,10 +86,10 @@ const ManageBranches = () => {
         >
             
             <BarChart
-              width={1000}
+              width={1100}
               height={400}
               data={data}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              margin={{ top: 5, right: 10, left: 10, bottom: 5 }}
             >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name"/>
@@ -108,13 +108,13 @@ const ManageBranches = () => {
           style={{ display: "flex", justifyContent: "center", padding: "50px" }}
         >
             <BarChart
-              width={1000}
+              width={1100}
               height={400}
               data={data}
               margin={{
                 top: 5,
-                right: 30,
-                left: 20,
+                right: 10,
+                left: 10,
                 bottom: 5,
               }}
             >
