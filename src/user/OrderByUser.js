@@ -17,6 +17,7 @@ const OrderByUser = () => {
         const purchaseHistory = await getPurchaseHistory(_id, token,paramString);
         if (purchaseHistory.error) return console.log(purchaseHistory.error);
         setHistory(purchaseHistory.data);
+        if(purchaseHistory.totalRow === 0) return console.log(totalRow);
         setTotalRow(purchaseHistory.totalRow);
       };
       const [totalRow, setTotalRow] = useState(1);
